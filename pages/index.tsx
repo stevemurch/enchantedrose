@@ -23,21 +23,24 @@ const Home: NextPage = () => {
           Enchanted Rose
         </h1>
 
-        <div className="mt-8 flex flex-row gap-12">
-          <div>
-            <Button iconObj={FaLeaf} label="Drop 1" />
-          </div>
-          <div>
-            <Button iconObj={FaLeaf} label="Drop 2" />
-          </div>
-          <div>
-            <Button iconObj={FaLeaf} label="Drop 3" />
-          </div>
-          <div>
-            <Button iconObj={FaLeaf} label="Drop 4" />
-          </div>
-          <div>
-            <Button iconObj={FaExchangeAlt} label="Test connectivity" />
+        <div className="mt-8 mb-4">
+          <Button iconObj={FaExchangeAlt} label="Test connectivity" />
+        </div>
+
+        <div className="flex justify-center max-w-sm">
+          <div className="mt-8 flex justify-center gap-12">
+            <div>
+              <Button iconObj={FaLeaf} label="Drop 1" />
+            </div>
+            <div>
+              <Button iconObj={FaLeaf} label="Drop 2" />
+            </div>
+            <div>
+              <Button iconObj={FaLeaf} label="Drop 3" />
+            </div>
+            <div>
+              <Button iconObj={FaLeaf} label="Drop 4" />
+            </div>
           </div>
         </div>
       </main>
