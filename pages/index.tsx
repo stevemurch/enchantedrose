@@ -2,15 +2,25 @@ import { FaExchangeAlt, FaLeaf } from "react-icons/fa";
 
 import Button from "../components/button";
 import Head from "next/head";
+import LogWindow from "../components/log-window";
 import type { NextPage } from "next";
 import { dropPetal } from "../helpers/api";
 import styles from "../styles/Home.module.css";
+import { useState } from "react";
 
 const Home: NextPage = () => {
+  const [logOutput, setLogOutput] = useState("Hello world\r\nHi");
+
+  const appendLog = (txt: string) => {
+    const newText = txt + "\r\n" + logOutput;
+    setLogOutput(newText);
+  };
+
   const doDropPetal = (petalNum: number) => {
     dropPetal(petalNum)
       .then((result) => {
         console.log(result);
+        appendLog(result);
       })
       .catch((err) => {
         console.error("Error on doDropPetal");
@@ -72,6 +82,9 @@ const Home: NextPage = () => {
               />
             </div>
           </div>
+        </div>
+        <div className="max-w-sm mt-8 w-full mx-auto">
+          <LogWindow text={logOutput} />
         </div>
       </main>
     </div>
