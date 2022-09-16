@@ -1,10 +1,10 @@
 import { FaExchangeAlt, FaLeaf } from "react-icons/fa";
+import { dropPetal, testConnectivity } from "../helpers/api";
 
 import Button from "../components/button";
 import Head from "next/head";
 import LogWindow from "../components/log-window";
 import type { NextPage } from "next";
-import { dropPetal } from "../helpers/api";
 import styles from "../styles/Home.module.css";
 import { useState } from "react";
 
@@ -24,6 +24,20 @@ const Home: NextPage = () => {
       })
       .catch((err) => {
         console.error("Error on doDropPetal");
+        appendLog("NETWORK ERROR ON DROPPETAL");
+        appendLog(err.message);
+      });
+  };
+
+  const doTestConnectivity = () => {
+    testConnectivity()
+      .then((result) => {
+        console.log(result);
+        appendLog(result);
+      })
+      .catch((err) => {
+        console.error("Error on textConnectivity");
+        appendLog("ERROR ON CONNECTIVITY TEST");
       });
   };
 
@@ -45,7 +59,9 @@ const Home: NextPage = () => {
 
         <div className="mt-8 mb-4">
           <Button
-            onClick={() => {}}
+            onClick={() => {
+              doTestConnectivity();
+            }}
             iconObj={FaExchangeAlt}
             label="Test connectivity"
           />
