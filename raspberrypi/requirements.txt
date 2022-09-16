@@ -1,0 +1,4 @@
+# PIP requirements
+# Flask: a framework to develop a simple website
+# GPIO libraries: to let the raspberry pi communicate with the input/output
+

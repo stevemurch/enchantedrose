@@ -3,9 +3,20 @@ import { FaExchangeAlt, FaLeaf } from "react-icons/fa";
 import Button from "../components/button";
 import Head from "next/head";
 import type { NextPage } from "next";
+import { dropPetal } from "../helpers/api";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
+  const doDropPetal = (petalNum: number) => {
+    dropPetal(petalNum)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.error("Error on doDropPetal");
+      });
+  };
+
   return (
     <div className="bg-gray-900">
       <Head>
@@ -23,22 +34,42 @@ const Home: NextPage = () => {
         </h1>
 
         <div className="mt-8 mb-4">
-          <Button iconObj={FaExchangeAlt} label="Test connectivity" />
+          <Button
+            onClick={() => {}}
+            iconObj={FaExchangeAlt}
+            label="Test connectivity"
+          />
         </div>
 
         <div className="flex justify-center max-w-sm">
           <div className="mt-8 flex justify-center gap-12">
             <div>
-              <Button iconObj={FaLeaf} label="Drop 1" />
+              <Button
+                onClick={() => doDropPetal(1)}
+                iconObj={FaLeaf}
+                label="Drop 1"
+              />
             </div>
             <div>
-              <Button iconObj={FaLeaf} label="Drop 2" />
+              <Button
+                onClick={() => doDropPetal(2)}
+                iconObj={FaLeaf}
+                label="Drop 2"
+              />
             </div>
             <div>
-              <Button iconObj={FaLeaf} label="Drop 3" />
+              <Button
+                onClick={() => doDropPetal(3)}
+                iconObj={FaLeaf}
+                label="Drop 3"
+              />
             </div>
             <div>
-              <Button iconObj={FaLeaf} label="Drop 4" />
+              <Button
+                onClick={() => doDropPetal(4)}
+                iconObj={FaLeaf}
+                label="Drop 4"
+              />
             </div>
           </div>
         </div>
