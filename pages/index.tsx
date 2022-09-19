@@ -99,7 +99,12 @@ const Home: NextPage = () => {
           </div>
         </div>
         <div className="max-w-sm mt-8 w-full mx-auto">
-          <LogWindow text={logOutput} />
+          <LogWindow
+            onClearClicked={() => {
+              setLogOutput("");
+            }}
+            text={logOutput}
+          />
         </div>
       </main>
     </div>
