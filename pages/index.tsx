@@ -1,15 +1,18 @@
 import { FaExchangeAlt, FaLeaf } from "react-icons/fa";
 import { dropPetal, testConnectivity } from "../helpers/api";
+import { useEffect, useState } from "react";
 
 import Button from "../components/button";
 import Head from "next/head";
 import LogWindow from "../components/log-window";
 import type { NextPage } from "next";
+import classnames from "classnames";
+import { connect } from "http2";
 import styles from "../styles/Home.module.css";
-import { useState } from "react";
 
 const Home: NextPage = () => {
   const [logOutput, setLogOutput] = useState("");
+  const [connectionSuccessful, setConnectionSuccessful] = useState(false);
 
   const appendLog = (txt: string) => {
     const newText = txt + "\r\n" + logOutput;
@@ -40,6 +43,21 @@ const Home: NextPage = () => {
       });
   };
 
+  useEffect(() => {
+    // try to connect
+    testConnectivity()
+      .then((result) => {
+        setConnectionSuccessful(true);
+        setLogOutput("Ready!");
+      })
+      .catch((err) => {
+        setConnectionSuccessful(false);
+        setLogOutput(
+          "ERROR: API service on device is not responding. Check that the python flask app is up and running."
+        );
+      });
+  }, []);
+
   return (
     <div className="bg-gray-900">
       <Head>
@@ -50,7 +68,14 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <div className="mb-8">
-          <img src="/assets/rose.jpg" className="w-48 rounded-lg" />
+          <img
+            src="/assets/rose.jpg"
+            className={classnames(
+              { "w-48 rounded-lg": true },
+              { "opacity-10": !connectionSuccessful },
+              { "opacity-100": connectionSuccessful }
+            )}
+          />
         </div>
         <h1 className="text-white text-4xl font-semibold leading-loose">
           Enchanted Rose
