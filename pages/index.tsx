@@ -9,7 +9,7 @@ import styles from "../styles/Home.module.css";
 import { useState } from "react";
 
 const Home: NextPage = () => {
-  const [logOutput, setLogOutput] = useState("Hello world\r\nHi");
+  const [logOutput, setLogOutput] = useState("");
 
   const appendLog = (txt: string) => {
     const newText = txt + "\r\n" + logOutput;
@@ -33,10 +33,9 @@ const Home: NextPage = () => {
     testConnectivity()
       .then((result) => {
         console.log(result);
-        appendLog(result);
+        appendLog(result.data.message);
       })
       .catch((err) => {
-        console.error("Error on textConnectivity");
         appendLog("ERROR ON CONNECTIVITY TEST");
       });
   };

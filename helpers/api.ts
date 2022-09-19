@@ -1,5 +1,6 @@
 import { ROSE_BASE_URL } from "../globals";
 import axios from "axios";
+
 export const dropPetal = (num: number): Promise<string> => {
   const url = `${ROSE_BASE_URL}/activate/${num}`;
 
@@ -15,14 +16,14 @@ export const dropPetal = (num: number): Promise<string> => {
   });
 };
 
-export const testConnectivity = (): Promise<string> => {
-  const url = `${ROSE_BASE_URL}/`;
+export const testConnectivity = (): Promise<any> => {
+  const url = `${ROSE_BASE_URL}/status`;
 
-  return new Promise<string>((resolve, reject) => {
+  return new Promise<any>((resolve, reject) => {
     axios
       .get(url)
       .then((result) => {
-        resolve(`CONNECTION SUCCESSFUL`);
+        resolve(result);
       })
       .catch((err) => {
         reject(err);
