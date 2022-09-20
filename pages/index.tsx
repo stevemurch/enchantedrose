@@ -7,12 +7,12 @@ import Head from "next/head";
 import LogWindow from "../components/log-window";
 import type { NextPage } from "next";
 import classnames from "classnames";
-import { connect } from "http2";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
   const [logOutput, setLogOutput] = useState("");
   const [connectionSuccessful, setConnectionSuccessful] = useState(false);
+  //const [hostName, setHostname]
 
   const appendLog = (txt: string) => {
     const newText = txt + "\r\n" + logOutput;
@@ -123,7 +123,7 @@ const Home: NextPage = () => {
             </div>
           </div>
 
-          <div className="mt-8 w-full mx-auto">
+          <div className="mt-12 w-full mx-auto">
             <LogWindow
               onClearClicked={() => {
                 setLogOutput("");
