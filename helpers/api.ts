@@ -30,3 +30,18 @@ export const testConnectivity = (): Promise<any> => {
       });
   });
 };
+
+export const changeColor = (r: number, g: number, b: number): Promise<any> => {
+  const url = `${ROSE_BASE_URL}/color?r=${r}&g=${g}&b=${b}`;
+
+  return new Promise<any>((resolve, reject) => {
+    axios
+      .get(url)
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};

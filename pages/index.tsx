@@ -1,5 +1,6 @@
-import { FaExchangeAlt, FaLeaf } from "react-icons/fa";
-import { dropPetal, testConnectivity } from "../helpers/api";
+import { FaExchangeAlt, FaLeaf, FaPalette } from "react-icons/fa";
+import { HexColorPicker, RgbColorPicker } from "react-colorful";
+import { changeColor, dropPetal, testConnectivity } from "../helpers/api";
 import { useEffect, useState } from "react";
 
 import Button from "../components/button";
@@ -12,6 +13,8 @@ import styles from "../styles/Home.module.css";
 const Home: NextPage = () => {
   const [logOutput, setLogOutput] = useState("");
   const [connectionSuccessful, setConnectionSuccessful] = useState(false);
+
+  const [color, setColor] = useState({ r: 0, g: 0, b: 0 });
   //const [hostName, setHostname]
 
   const appendLog = (txt: string) => {
@@ -28,6 +31,19 @@ const Home: NextPage = () => {
       .catch((err) => {
         console.error("Error on doDropPetal");
         appendLog("NETWORK ERROR ON DROPPETAL");
+        appendLog(err.message);
+      });
+  };
+
+  const doChangeColor = (r: number, g: number, b: number) => {
+    changeColor(r, g, b)
+      .then((result) => {
+        console.log(result);
+        appendLog(result.data.message);
+      })
+      .catch((err) => {
+        console.error("Error on doChangeColor");
+        appendLog("NETWORK ERROR ON CHANGECOLOR");
         appendLog(err.message);
       });
   };
@@ -80,7 +96,16 @@ const Home: NextPage = () => {
         <h1 className="text-white text-4xl font-semibold leading-loose">
           Enchanted Rose
         </h1>
-
+        <div>
+          <RgbColorPicker
+            color={color}
+            onChange={(ev) => {
+              setColor(ev);
+              //doChangeColor(ev.r, ev.g, ev.b);
+              console.log(ev);
+            }}
+          />
+        </div>
         <div className="mt-8 mb-4">
           <Button
             onClick={() => {
@@ -119,6 +144,23 @@ const Home: NextPage = () => {
                 onClick={() => doDropPetal(4)}
                 iconObj={FaLeaf}
                 label="4"
+              />
+            </div>
+          </div>
+
+          <div className="mt-4 flex justify-center gap-6">
+            <div>
+              <Button
+                onClick={() => doChangeColor(color.r, color.g, color.b)}
+                iconObj={FaPalette}
+                label="Color"
+              />
+            </div>
+            <div>
+              <Button
+                onClick={() => doChangeColor(0, 0, 0)}
+                iconObj={FaPalette}
+                label="Off"
               />
             </div>
           </div>
