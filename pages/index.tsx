@@ -1,4 +1,9 @@
-import { FaExchangeAlt, FaLeaf, FaPalette } from "react-icons/fa";
+import {
+  FaExchangeAlt,
+  FaLeaf,
+  FaPalette,
+  FaRegLightbulb,
+} from "react-icons/fa";
 import { HexColorPicker, RgbColorPicker } from "react-colorful";
 import { changeColor, dropPetal, testConnectivity } from "../helpers/api";
 import { useEffect, useState } from "react";
@@ -15,6 +20,8 @@ const Home: NextPage = () => {
   const [connectionSuccessful, setConnectionSuccessful] = useState(false);
 
   const [color, setColor] = useState({ r: 0, g: 0, b: 0 });
+
+  const [colorPickerVisible, setColorPickerVisible] = useState(false);
   //const [hostName, setHostname]
 
   const appendLog = (txt: string) => {
@@ -96,16 +103,7 @@ const Home: NextPage = () => {
         <h1 className="text-white text-4xl font-semibold leading-loose">
           Enchanted Rose
         </h1>
-        <div>
-          <RgbColorPicker
-            color={color}
-            onChange={(ev) => {
-              setColor(ev);
-              //doChangeColor(ev.r, ev.g, ev.b);
-              console.log(ev);
-            }}
-          />
-        </div>
+
         <div className="mt-8 mb-4">
           <Button
             onClick={() => {
@@ -150,16 +148,56 @@ const Home: NextPage = () => {
 
           <div className="mt-4 flex justify-center gap-6">
             <div>
-              <Button
-                onClick={() => doChangeColor(color.r, color.g, color.b)}
-                iconObj={FaPalette}
-                label="Color"
-              />
+              {colorPickerVisible && (
+                <>
+                  <RgbColorPicker
+                    color={color}
+                    onChange={(ev) => {
+                      setColor(ev);
+                      //doChangeColor(ev.r, ev.g, ev.b);
+                      console.log(ev);
+                    }}
+                  />
+                </>
+              )}
+            </div>
+            <div>
+              {colorPickerVisible && (
+                <Button
+                  onClick={() => {
+                    doChangeColor(color.r, color.g, color.b);
+                    setColorPickerVisible(false);
+                  }}
+                  iconObj={FaPalette}
+                  label="Set Color"
+                />
+              )}
+              {!colorPickerVisible && (
+                <>
+                  <div
+                    title="LED color"
+                    className="w-6 h-6 inline-block mr-3 relative top-1 rounded-full"
+                    style={{
+                      background:
+                        "rgb(" + color.r + "," + color.g + "," + color.b + ")",
+                    }}
+                  ></div>
+                  <Button
+                    onClick={() => setColorPickerVisible(true)}
+                    iconObj={FaPalette}
+                    label="Choose Color"
+                  />
+                </>
+              )}
             </div>
             <div>
               <Button
-                onClick={() => doChangeColor(0, 0, 0)}
-                iconObj={FaPalette}
+                onClick={() => {
+                  doChangeColor(0, 0, 0);
+                  setColor({ r: 0, g: 0, b: 0 });
+                  setColorPickerVisible(false);
+                }}
+                iconObj={FaRegLightbulb}
                 label="Off"
               />
             </div>
