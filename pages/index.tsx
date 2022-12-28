@@ -94,13 +94,13 @@ const Home: NextPage = () => {
           <img
             src="/assets/rose.jpg"
             className={classnames(
-              { "w-48 rounded-lg": true },
+              { "w-24 rounded-lg": true },
               { "opacity-10": !connectionSuccessful },
               { "opacity-100": connectionSuccessful }
             )}
           />
         </div>
-        <h1 className="text-white text-4xl font-semibold leading-loose">
+        <h1 className="text-white text-2xl font-semibold leading-loose">
           Enchanted Rose
         </h1>
 
