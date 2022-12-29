@@ -1,4 +1,16 @@
-The Enchanted Rose is a prop with a Raspberry Pi Zero W base. 
+The Enchanted Rose is a prop with a Raspberry Pi Zero W base. You connect to it using an ad-hoc network (i.e., use your iPhone's Wifi settings to connect to the device) and operate the prop with your mobile phone's web browser. 
+
+The instructions below will place that web server at 192.168.11.1. So once you connect in to the prop, you visit http://192.168.11.1 on your phone's web browser. 
+
+## Install Apache2 On Your Pi
+
+All you need to do to get an Apache server running on your Pi is:
+
+```sudo apt install apache2 -y```
+
+Apache will serve up the website located at ```/var/www/html ```
+
+## Building and Deploying
 
 To build new versions, use a Next.js development environment. Make changes locally and make sure they run on your local machine. 
 
@@ -6,9 +18,148 @@ Then do a
 ```next build```
 This will generate an ```out``` subfolder on your machine.
 Connect into the Raspberry Pi via Filezilla (use "root" as the username and the admin password.) Copy the output files into the folder
-```\var\www\html```
+```/var/www/html```
 
+## Setting Up Ad-Hoc Networking for the Prop
 
+The enchanted rose prop is designed to be used at any location, without user intervention to try to connect it to a local wifi or Ethernet network. This means it has its own wifi network -- an "ad-hoc" network. Technically, the instructions below build a custom wifi Access Point for an existing Ethernet network. 
 
+This is the most complicated part. Grab a cup of coffee. But follow the instructions below carefully; they WORK. 
 
+First, note: **You cannot just use any old version of Raspbian** and expect it to work! The various Linux distros have really changed the way they do networking, and many, many of the instructions on the Internet are out of date, and don't specify which versions they were using. For instance, I wasted hours trying to get the (latest) "Bullseye" release of Raspbian to work, but I *was* successful in getting "**Buster**" to work with the instructions below. 
 
+So, for the first step, use the Raspberry Pi Imager, click the gear settings, so you can customize a few things. Grant SSH access, set a password. Choose "Custom Image" and find and download the .img file for Raspbian Buster. Burn "Buster" Raspbian onto an SD card, and put it in your Pi Zero W device. 
+
+Then, [follow the instructions below, adapted from the very good guide here](https://www.raspberrypi.com/documentation/computers/configuration.html) to have the RPi create its own network, serving as an access point for the Ethernet network. That way, your Pi will be able to serve up a wifi access point that you can connect into with an iPhone or Android device, but also, when the Pi is plugged into an Ethernet jack, it can connect to the Internet to be able to install libraries, pull things from GitHub, etc. 
+
+### Changes from the Official Documentation
+
+At home, my Ethernet LAN happens to be using the 192.168.4.x address range. So I've modified the instructions at the link above to build an access point that connects to eth0 (192.168.4.x) and establish a new **wireless network** at **192.168.11.x**. 
+
+Here's what I do:
+
+```bash
+sudo nano /etc/dhcpcd.conf
+```
+
+Go to the end of this file and add the following, to declare the IP address for the wireless access point:
+
+```bash
+interface wlan0
+    static ip_address=192.168.11.1/24
+    nohook wpa_supplicant
+```
+
+To enable routing, i.e. to allow traffic to flow from one network to the other in the Raspberry Pi, create a file using the following command, with the contents below:
+
+```bash
+sudo nano /etc/sysctl.d/routed-ap.conf
+```
+
+File contents: 
+
+```bash
+# Enable IPv4 routing
+net.ipv4.ip_forward=1
+```
+
+Enabling routing will allow hosts from network `192.168.11.0/24` to reach the LAN and the main router towards the internet. In order to allow traffic between clients on this foreign wireless network and the internet without changing the configuration of the main router, the Raspberry Pi can substitute the IP address of wireless clients with its own IP address on the LAN using a "masquerade" firewall rule.
+
+- The main router will see all outgoing traffic from wireless clients as coming from the Raspberry Pi, allowing communication with the internet.
+- The Raspberry Pi will receive all incoming traffic, substitute the IP addresses back, and forward traffic to the original wireless client.
+
+This process is configured by adding a single firewall rule in the Raspberry Pi:
+
+```bash
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+```
+
+Now save the current firewall rules for IPv4 (including the rule above) and IPv6 to be loaded at boot by the `netfilter-persistent` service:
+
+```bash
+sudo netfilter-persistent save
+```
+
+Filtering rules are saved to the directory `/etc/iptables/`. If in the future you change the configuration of your firewall, make sure to save the configuration before rebooting.
+
+#### Configure the DHCP and DNS services for the wireless network
+
+The DHCP and DNS services are provided by `dnsmasq`. The default configuration file serves as a template for all possible configuration options, whereas we only need a few. It is easier to start from an empty file.
+
+Rename the default configuration file and edit a new one:
+
+```
+sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
+sudo nano /etc/dnsmasq.conf
+```
+
+Add the following to the file and save it:
+
+```
+interface=wlan0 # Listening interface
+dhcp-range=192.168.11.2,192.168.11.20,255.255.255.0,24h
+                # Pool of IP addresses served via DHCP
+domain=wlan     # Local wireless DNS domain
+address=/gw.wlan/192.168.11.1
+                # Alias for this router
+```
+
+The Raspberry Pi will deliver IP addresses between `192.168.11.2` and `192.168.4.20`, with a lease time of 24 hours, to wireless DHCP clients. You should be able to reach the Raspberry Pi under the name `gw.wlan` from wireless clients.
+
+|      | There are three IP address blocks set aside for private networks. There is a Class A block from `10.0.0.0` to `10.255.255.255`, a Class B block from `172.16.0.0` to `172.31.255.255`, and probably the most frequently used, a Class C block from `192.168.0.0` to `192.168.255.255`. |
+| ---- | :----------------------------------------------------------- |
+|      |                                                              |
+
+There are many more options for `dnsmasq`; see the default configuration file (`/etc/dnsmasq.conf`) or the [online documentation](http://www.thekelleys.org.uk/dnsmasq/doc.html) for details.
+
+### Configure the AP Software
+
+Create the `hostapd` configuration file, located at `/etc/hostapd/hostapd.conf`, to add the various parameters for your new wireless network.
+
+```
+sudo nano /etc/hostapd/hostapd.conf
+```
+
+Add the information below to the configuration file. This configuration assumes we are using channel 7, with a network name of `NameOfNetwork`, and a password `AardvarkBadgerHedgehog`. Note that the name and password should **not** have quotes around them. The passphrase should be between 8 and 64 characters in length.
+
+```
+country_code=US
+interface=wlan0
+ssid=EnchRose
+hw_mode=g
+channel=7
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0
+wpa=2
+wpa_passphrase=passwordHere
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+```
+
+Note the line `country_code=US`: it configures the computer to use the correct wireless frequencies in the United States. 
+
+Note: Leave the hw_mode in "g" (which is 2.4Ghz.) I was unable to get it to work by switching it to "a". The docs say that to use the 5 GHz band, you can change the operations mode from `hw_mode=g` to `hw_mode=a`. Possible values for `hw_mode` are:
+
+- a = IEEE 802.11a (5 GHz) (Raspberry Pi 3B+ onwards)
+- b = IEEE 802.11b (2.4 GHz)
+- g = IEEE 802.11g (2.4 GHz)
+
+**Note that when changing the `hw_mode`, you may need to also change the `channel` - see [Wikipedia](https://en.wikipedia.org/wiki/List_of_WLAN_channels) for a list of allowed combinations.**
+
+### Running the new Wireless AP
+
+Now restart your Raspberry Pi and verify that the wireless access point becomes automatically available.
+
+```
+sudo systemctl reboot
+```
+
+Once your Raspberry Pi has restarted, search for wireless networks with your wireless client. The network SSID you specified in file `/etc/hostapd/hostapd.conf` should now be present, and it should be accessible with the specified password.
+
+If SSH is enabled on the Raspberry Pi, it should be possible to connect to it from your wireless client as follows, assuming the `pi` account is present: `ssh pi@192.168.11.1`
+
+If your wireless client has access to your Raspberry Pi (and the internet, if you set up routing), congratulations on setting up your new access point!
+
+Once you do this you SHOULD be able to connect into its wifi, but also it should have an IP address on the eth0 (hardwired) Ethernet, as long as its plugged into the network. 
