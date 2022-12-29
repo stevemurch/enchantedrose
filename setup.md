@@ -1,18 +1,42 @@
-# Setting up the Raspberry Pi
+# Setting up a Raspberry Pi for Ad Hoc Networking
 
+The Raspberry Pi microcomputer is great for building "Internet of Things" type devices. Perhaps you want to be able to control them remotely via their own wifi network. 
 
+I'm building an updated version of the Enchanted Rose prop which uses wifi, and not Bluetooth, for its control signals. And I don't know what networking environments the prop might be used in. Rather than equip the prop with some kind of way for the prop to join a local WAN, it's far easier for it to broadcast its own tiny network, and be controlled from backstage just on its own. 
 
-## 0. Burn a Raspbian Image onto your SD card.
+The following are instructions which enabled a Raspberry Pi Zero 2W devices to create its own wifi network, broadcast its own ssid, and allow clients (such as mobile browsers) to join it and see a control webpage. 
 
-You must use the older "Buster" version of Raspbian. The Ad-hoc networking steps described below have **only been tested to work on the "Buster" version**, and I was UNABLE TO GET THEM TO WORK on the latest version ("bullet") of Raspbian OS. I recommend the [Raspbian OS imager](https://www.raspberrypi.com/software/). You need to be sure to click the GEAR icon, and ENABLE SSH with a password, if you plan on doing this headless. Also be sure to grab and download the "buster" raspbian .img file, and burn that to the SD card. DO NOT JUST CHOOSE THE LATEST RASPBIAN OS; I WAS UNABLE TO GET AD-HOC NETWORKING TO WORK USING IT, BUT I WAS ABLE TO GET IT TO WORK USING "BUSTER." 
+## Prerequisite: Burn the Raspbian Image of an older version called "Buster" onto your SD card
 
-## 1. Set up "root"
+For the instructions below to work, you *must* use the older "Buster" version of Raspbian. 
 
-Instead of the user "pi", for some operations you may need root access. For instance, NeoPixel libraries need Raspberry Pi "root" permission to install. So it's best to set up a root user password:
+The Ad-hoc networking steps described below have **only been tested to work on the "Buster" version**. That's not quite true -- I tried and failed to get them to work on the latest ("Bullet") version of Raspbian OS. The Raspberry Pi Foundation is great, but it's pretty frustrating that they're constantly tweaking the network setup bits -- there are so many links out on the Internet today which refer to old versions and drivers. 
+
+If you are dedicating this Raspberry Pi to its own ad-hoc network, I highly  recommend you use the [Raspbian OS imager](https://www.raspberrypi.com/software/) to create a bootable card with Raspbian OS "Buster" on it. To do that, you need to be sure to download and unzip an image, select it, and also click the GEAR icon to ENABLE SSH with a password, and also set it up with your home wifi's network name (SSID) and password. Be sure to grab and download the "buster" raspbian .img file, and burn that to the SD card. 
+
+ONCE AGAIN: DO NOT JUST CHOOSE THE LATEST RASPBIAN OS; I WAS UNABLE TO GET AD-HOC NETWORKING TO WORK USING IT, BUT I WAS ABLE TO GET IT TO WORK USING "BUSTER." 
+
+After your card is written, you should be able to pop it out and put it in your RPi, and turn on the device. After a few moments, you should be able to ssh into it (Mac) or use PuTTY (Windows) to connect. To find the device's IP address, go into your wifi's router and look for a recently joined Raspberry Pi device. (Generally, the IP address will be the same from session to session.)
+
+For Mac OSX, this looks something like:
+
+```ssh pi@192.168.x.y```
+
+where x and y are numbers. Every Internet device connected to your wifi is assigned a different address; this will vary from device to device. The default password for "pi" is "raspberry". 
+
+Later in these setup instructions, we're going to have it create its own wifi network with its own subnet, and connect on the backend with Ethernet. This is called a "Wide Area Network Access Point" or "Wifi Access Point" configuration, in which the RPi will basically have two IP addresses: one over the wire, and the other wireless. 
+
+## 1. Set up "root" user
+
+Instead of the default user "pi", for some operations you may need root access. For instance, [NeoPixel libraries](https://www.adafruit.com/category/275) need Raspberry Pi "root" permission to run. So it's best to set up a root user password first thing:
 
 ```su passwd root```
 
-### 1a. Allow remote login for "root" user
+Then, log out of ssh and log back in with ssh root@<ip address>
+
+From here on, you'll want to sign in as root. 
+
+### Enable remote login for the "root" user
 
 1. ```sudo nano /etc/ssh/sshd_config```
 2. Find this line: **PermitRootLogin without-password**
