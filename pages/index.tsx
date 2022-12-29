@@ -90,32 +90,24 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <div className="mb-8">
-          <img
-            src="/assets/rose.jpg"
-            className={classnames(
-              { "w-24 rounded-lg": true },
-              { "opacity-10": !connectionSuccessful },
-              { "opacity-100": connectionSuccessful }
-            )}
-          />
+        <div className="flex flex-row">
+          <div className="mb-3">
+            <img
+              src="/assets/rose.jpg"
+              className={classnames(
+                { "w-24 rounded-lg": true },
+                { "opacity-10": !connectionSuccessful },
+                { "opacity-100": connectionSuccessful }
+              )}
+            />
+          </div>
         </div>
         <h1 className="text-white text-2xl font-semibold leading-loose">
           Enchanted Rose
         </h1>
 
-        <div className="mt-8 mb-4">
-          <Button
-            onClick={() => {
-              doTestConnectivity();
-            }}
-            iconObj={FaExchangeAlt}
-            label="Test connectivity"
-          />
-        </div>
-
         <div className="max-w-sm">
-          <div className="mt-8 flex justify-center gap-6">
+          <div className="mt-4 flex justify-center gap-6">
             <div>
               <Button
                 onClick={() => doDropPetal(1)}
@@ -146,10 +138,10 @@ const Home: NextPage = () => {
             </div>
           </div>
 
-          <div className="mt-4 flex justify-center gap-6">
+          <div className="mt-8 flex justify-center">
             <div>
               {colorPickerVisible && (
-                <>
+                <div className="pr-3">
                   <RgbColorPicker
                     color={color}
                     onChange={(ev) => {
@@ -158,48 +150,61 @@ const Home: NextPage = () => {
                       console.log(ev);
                     }}
                   />
-                </>
+                </div>
               )}
             </div>
             <div>
-              {colorPickerVisible && (
-                <Button
-                  onClick={() => {
-                    doChangeColor(color.r, color.g, color.b);
-                    setColorPickerVisible(false);
-                  }}
-                  iconObj={FaPalette}
-                  label="Set Color"
-                />
-              )}
               {!colorPickerVisible && (
                 <>
-                  <div
-                    title="LED color"
-                    className="w-6 h-6 inline-block mr-3 relative top-1 rounded-full"
-                    style={{
-                      background:
-                        "rgb(" + color.r + "," + color.g + "," + color.b + ")",
-                    }}
-                  ></div>
-                  <Button
-                    onClick={() => setColorPickerVisible(true)}
-                    iconObj={FaPalette}
-                    label="Choose Color"
-                  />
+                  <div className="flex justify-center">
+                    <div
+                      onClick={() => {
+                        setColorPickerVisible(true);
+                      }}
+                      title="Set the LED color"
+                      className="ring-2 mb-3 cursor-pointer w-12 h-12 inline-block rounded-full"
+                      style={{
+                        background:
+                          "rgb(" +
+                          color.r +
+                          "," +
+                          color.g +
+                          "," +
+                          color.b +
+                          ")",
+                      }}
+                    ></div>
+                  </div>
                 </>
               )}
-            </div>
-            <div>
-              <Button
-                onClick={() => {
-                  doChangeColor(0, 0, 0);
-                  setColor({ r: 0, g: 0, b: 0 });
-                  setColorPickerVisible(false);
-                }}
-                iconObj={FaRegLightbulb}
-                label="Off"
-              />
+
+              <div>
+                {colorPickerVisible && (
+                  <div className="mb-4">
+                    <Button
+                      onClick={() => {
+                        doChangeColor(color.r, color.g, color.b);
+                        setColorPickerVisible(false);
+                      }}
+                      iconObj={FaPalette}
+                      label="OK"
+                    />
+                  </div>
+                )}
+                <div className="">
+                  {(color.r != 0 || color.g != 0 || color.b != 0) && (
+                    <Button
+                      onClick={() => {
+                        doChangeColor(0, 0, 0);
+                        setColor({ r: 0, g: 0, b: 0 });
+                        setColorPickerVisible(false);
+                      }}
+                      iconObj={FaRegLightbulb}
+                      label="Light Off"
+                    />
+                  )}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -209,6 +214,15 @@ const Home: NextPage = () => {
                 setLogOutput("");
               }}
               text={logOutput}
+            />
+          </div>
+          <div className="mt-2 flex justify-center">
+            <Button
+              onClick={() => {
+                doTestConnectivity();
+              }}
+              iconObj={FaExchangeAlt}
+              label="Test connection"
             />
           </div>
         </div>
