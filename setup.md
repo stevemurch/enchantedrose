@@ -232,7 +232,7 @@ Add the information below to the configuration file. This configuration assumes 
 ```
 country_code=US
 interface=wlan0
-ssid=NameOfNetwork
+ssid=EnchantedRose
 hw_mode=g
 channel=7
 macaddr_acl=0
@@ -245,7 +245,7 @@ wpa_pairwise=TKIP
 rsn_pairwise=CCMP
 ```
 
-Note the line `country_code=US`: it configures the computer to use the correct wireless frequencies in the United States. **Adapt this line** and specify the two-letter ISO code of your country. See [Wikipedia](https://en.wikipedia.org/wiki/ISO_3166-1) for a list of two-letter ISO 3166-1 country codes.
+Note the line `country_code=US`: it configures the computer to use the correct wireless frequencies in the United States. **Adapt this line** and specify the two-letter ISO code of your country. See [Wikipedia](https://en.wikipedia.org/wiki/ISO_3166-1) for a list of two-letter ISO 3166-1 country codes. YOUR PASSWORD MUST BE BETWEEN 8 AND 64 CHARACTERS or the network will fail to start. 
 
 To use the 5 GHz band, you can change the operations mode from `hw_mode=g` to `hw_mode=a`. Possible values for `hw_mode` are:
 
@@ -254,6 +254,8 @@ To use the 5 GHz band, you can change the operations mode from `hw_mode=g` to `h
 - g = IEEE 802.11g (2.4 GHz)
 
 **Note that when changing the `hw_mode`, you may need to also change the `channel` - see [Wikipedia](https://en.wikipedia.org/wiki/List_of_WLAN_channels) for a list of allowed combinations.**
+
+If you have trouble getting hostapd to start, try running ```sudo service hostapd start``` it at the command line, and you'll likely see an error message. 
 
 ### Running the new Wireless AP
 
