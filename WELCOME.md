@@ -1,10 +1,18 @@
-# Physical Prop Notes
+# Welcome to Enchanted Rose
 
+This prop was built by Steve Murch. Visit https://stevemurch.com for notes. 
 
+## Components
+
+- Glass Cloche
+- Prop Base, with electronics (powered by Raspberry Pi Zero W2)
+- Rose and Petals
 
 ## Operation
 
-1. Ensure batteries are fresh and that battery packs are turned on
+The prop is operated from a mobile phone via its own wifi network. Don't disclose the password for the wifi network, as the prop is only meant to be operated by one person at a time. 
+
+1. Ensure batteries are fresh and that battery packs are turned on. Fresh AA batteries are recommended for each performance, but should last through at least 3-4 performances as they are only used for the motor and lights. 
 2. Turn on the power to the prop
 3. Wait 30 seconds or so
 4. Use your mobile phone's wifi setting -- look for a new wifi network: "EnchantRose"
@@ -20,6 +28,7 @@
 | No "EnchantRose" network shown on my mobile phone            | See if another device can see it -- tested with iPhone<br />Ensure power to device is on and that micro-SD card is firmly inserted -- there should be a green light on the RPi <br /> |
 | I can connect to controller interface, but it says it cannot connect to device | Try "Connect to Device" button on control. If you get an error in the box below, contact Steve. |
 | I can connect to controller interface, but when I press the drop button, nothing happens | Most likely, batteries are depleted, or the battery pack wires aren't connected to the pump motors. |
+| Lights don't turn on                                         | Check that the battery packs are fresh, and check the wiring |
 
 Make sure batteries are fresh.
 
