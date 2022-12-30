@@ -9,6 +9,7 @@ import { changeColor, dropPetal, testConnectivity } from "../helpers/api";
 import { useEffect, useState } from "react";
 
 import Button from "../components/button";
+import ColorButton from "../components/color-button";
 import Head from "next/head";
 import LogWindow from "../components/log-window";
 import type { NextPage } from "next";
@@ -205,6 +206,66 @@ const Home: NextPage = () => {
                   )}
                 </div>
               </div>
+            </div>
+          </div>
+
+          <div>
+            <div className="flex justify-start gap-4">
+              <ColorButton
+                onClick={(colorResult) => {
+                  console.log(colorResult.b);
+                  setColor(colorResult);
+                }}
+                color={{
+                  r: 255,
+                  g: 0,
+                  b: 100,
+                }}
+              />
+              <ColorButton
+                onClick={(colorResult) => {
+                  console.log(colorResult.b);
+                  setColor(colorResult);
+                }}
+                color={{
+                  r: 255,
+                  g: 100,
+                  b: 0,
+                }}
+              />
+              <ColorButton
+                onClick={(colorResult) => {
+                  console.log(colorResult.b);
+                  setColor(colorResult);
+                }}
+                color={{
+                  r: 0,
+                  g: 100,
+                  b: 0,
+                }}
+              />
+              <ColorButton
+                onClick={(colorResult) => {
+                  console.log(colorResult.b);
+                  setColor(colorResult);
+                }}
+                color={{
+                  r: 0,
+                  g: 0,
+                  b: 255,
+                }}
+              />
+              <ColorButton
+                onClick={(colorResult) => {
+                  console.log(colorResult.b);
+                  setColor(colorResult);
+                }}
+                color={{
+                  r: 255,
+                  g: 255,
+                  b: 5,
+                }}
+              />
             </div>
           </div>
 
