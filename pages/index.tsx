@@ -19,9 +19,7 @@ import styles from "../styles/Home.module.css";
 const Home: NextPage = () => {
   const [logOutput, setLogOutput] = useState("");
   const [connectionSuccessful, setConnectionSuccessful] = useState(false);
-
   const [color, setColor] = useState({ r: 0, g: 0, b: 0 });
-
   const [colorPickerVisible, setColorPickerVisible] = useState(false);
   //const [hostName, setHostname]
 
@@ -103,114 +101,14 @@ const Home: NextPage = () => {
             />
           </div>
         </div>
-        <h1 className="text-white text-2xl font-semibold leading-loose">
-          Enchanted Rose
-        </h1>
 
-        <div className="max-w-sm">
-          <div className="mt-4 flex justify-center gap-6">
-            <div>
-              <Button
-                onClick={() => doDropPetal(1)}
-                iconObj={FaLeaf}
-                label="1"
-              />
-            </div>
-            <div>
-              <Button
-                onClick={() => doDropPetal(2)}
-                iconObj={FaLeaf}
-                label="2"
-              />
-            </div>
-            <div>
-              <Button
-                onClick={() => doDropPetal(3)}
-                iconObj={FaLeaf}
-                label="3"
-              />
-            </div>
-            <div>
-              <Button
-                onClick={() => doDropPetal(4)}
-                iconObj={FaLeaf}
-                label="4"
-              />
-            </div>
-          </div>
-
-          <div className="mt-8 flex justify-center">
-            <div>
-              {colorPickerVisible && (
-                <div className="pr-3">
-                  <RgbColorPicker
-                    color={color}
-                    onChange={(ev) => {
-                      setColor(ev);
-                      //doChangeColor(ev.r, ev.g, ev.b);
-                      console.log(ev);
-                    }}
-                  />
-                </div>
-              )}
-            </div>
-            <div>
-              {!colorPickerVisible && (
-                <>
-                  <div className="flex justify-center">
-                    <div
-                      onClick={() => {
-                        setColorPickerVisible(true);
-                      }}
-                      title="Set the LED color"
-                      className="ring-2 mb-3 cursor-pointer w-12 h-12 inline-block rounded-full"
-                      style={{
-                        background:
-                          "rgb(" +
-                          color.r +
-                          "," +
-                          color.g +
-                          "," +
-                          color.b +
-                          ")",
-                      }}
-                    ></div>
-                  </div>
-                </>
-              )}
-
-              <div>
-                {colorPickerVisible && (
-                  <div className="mb-4">
-                    <Button
-                      onClick={() => {
-                        doChangeColor(color.r, color.g, color.b);
-                        setColorPickerVisible(false);
-                      }}
-                      iconObj={FaPalette}
-                      label="OK"
-                    />
-                  </div>
-                )}
-                <div className="">
-                  {(color.r != 0 || color.g != 0 || color.b != 0) && (
-                    <Button
-                      onClick={() => {
-                        doChangeColor(0, 0, 0);
-                        setColor({ r: 0, g: 0, b: 0 });
-                        setColorPickerVisible(false);
-                      }}
-                      iconObj={FaRegLightbulb}
-                      label="Light Off"
-                    />
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-
+        <div className="mt-4 max-w-sm">
           <div>
-            <div className="flex justify-start gap-4">
+            <div className="w-full text-center font-extralight text-sm">
+              Accent Light
+            </div>
+
+            <div className="mt-4 flex justify-start gap-4">
               <ColorButton
                 onClick={(colorResult) => {
                   setColor(colorResult);
@@ -266,6 +164,53 @@ const Home: NextPage = () => {
                   b: 5,
                 }}
               />
+              <ColorButton
+                onClick={(colorResult) => {
+                  setColor(colorResult);
+                  doChangeColor(colorResult.r, colorResult.g, colorResult.b);
+                }}
+                color={{
+                  r: 0,
+                  g: 0,
+                  b: 0,
+                }}
+              />
+            </div>
+          </div>
+
+          <div>
+            <div className="w-full text-center font-extralight text-sm">
+              Petal Drop
+            </div>
+            <div className="mt-4 flex justify-center gap-6">
+              <div>
+                <Button
+                  onClick={() => doDropPetal(1)}
+                  iconObj={FaLeaf}
+                  label="1"
+                />
+              </div>
+              <div>
+                <Button
+                  onClick={() => doDropPetal(2)}
+                  iconObj={FaLeaf}
+                  label="2"
+                />
+              </div>
+              <div>
+                <Button
+                  onClick={() => doDropPetal(3)}
+                  iconObj={FaLeaf}
+                  label="3"
+                />
+              </div>
+              <div>
+                <Button
+                  onClick={() => doDropPetal(4)}
+                  iconObj={FaLeaf}
+                  label="4"
+                />
+              </div>
             </div>
           </div>
 

@@ -10,7 +10,7 @@ const LogWindow = (props: LogWindowProps) => {
   return (
     <>
       <div className="flex justify-between">
-        <div className="text-xs font-extralight text-gray-300 mb-2">
+        <div className="text-sm font-extralight text-gray-300 mb-2">
           Device Output
         </div>
         <div

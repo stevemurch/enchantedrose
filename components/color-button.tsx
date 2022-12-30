@@ -22,7 +22,11 @@ const ColorButton = (props: ColorButtonProps) => {
             props.color.b +
             ")",
         }}
-      ></div>
+      >
+        {props.color.r == 0 && props.color.g == 0 && props.color.b == 0 && (
+          <span className="relative top-3 left-3 font-extralight">off</span>
+        )}
+      </div>
     </div>
   );
 };
