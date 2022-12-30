@@ -311,6 +311,17 @@ const Home: NextPage = () => {
             />
           </div>
         </div>
+        <div className="mt-8 mb-8 text-xs text-extralight">
+          <a
+            className="text-extralight  text-xs"
+            href="https://www.stevemurch.com/category/tech/maker-projects"
+            target="_blank"
+          >
+            <span className="text-gray-600 hover:text-gray-200">
+              &copy; 2023 Steve Murch
+            </span>
+          </a>
+        </div>
       </main>
     </div>
   );
