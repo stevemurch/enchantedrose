@@ -1,9 +1,20 @@
+import classNames from "classnames";
+
 export interface ColorButtonProps {
+  currentColor: { r: number; g: number; b: number };
   onClick: (color: { r: number; g: number; b: number }) => void;
   color: { r: number; g: number; b: number };
 }
 
 const ColorButton = (props: ColorButtonProps) => {
+  const isCurrentColor = (): boolean => {
+    return (
+      props.currentColor.r == props.color.r &&
+      props.currentColor.g == props.color.g &&
+      props.currentColor.b == props.color.b
+    );
+  };
+
   return (
     <div>
       <div
@@ -11,7 +22,11 @@ const ColorButton = (props: ColorButtonProps) => {
           props.onClick(props.color);
         }}
         title=""
-        className="ring-2 mb-3 cursor-pointer w-12 h-12 inline-block rounded-full"
+        className={classNames(
+          "mb-3 cursor-pointer w-12 h-12 inline-block rounded-full",
+          { "ring-8": isCurrentColor() },
+          { "ring-2": !isCurrentColor() }
+        )}
         style={{
           background:
             "rgb(" +

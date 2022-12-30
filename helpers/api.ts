@@ -31,6 +31,22 @@ export const testConnectivity = (): Promise<any> => {
   });
 };
 
+export const setStemLight = (isOn: boolean): Promise<any> => {
+  const onOffStr = isOn ? "on" : "off";
+  const url = `${ROSE_BASE_URL}/stemlight/${onOffStr}`;
+
+  return new Promise<any>((resolve, reject) => {
+    axios
+      .get(url)
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
 export const changeColor = (r: number, g: number, b: number): Promise<any> => {
   const url = `${ROSE_BASE_URL}/color?r=${r}&g=${g}&b=${b}`;
 

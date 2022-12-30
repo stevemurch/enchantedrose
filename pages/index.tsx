@@ -1,11 +1,10 @@
+import { FaExchangeAlt, FaLeaf } from "react-icons/fa";
 import {
-  FaExchangeAlt,
-  FaLeaf,
-  FaPalette,
-  FaRegLightbulb,
-} from "react-icons/fa";
-import { HexColorPicker, RgbColorPicker } from "react-colorful";
-import { changeColor, dropPetal, testConnectivity } from "../helpers/api";
+  changeColor,
+  dropPetal,
+  setStemLight,
+  testConnectivity,
+} from "../helpers/api";
 import { useEffect, useState } from "react";
 
 import Button from "../components/button";
@@ -13,6 +12,7 @@ import ColorButton from "../components/color-button";
 import Head from "next/head";
 import LogWindow from "../components/log-window";
 import type { NextPage } from "next";
+import ToggleSwitch from "../components/toggle-switch";
 import classnames from "classnames";
 import styles from "../styles/Home.module.css";
 
@@ -65,6 +65,17 @@ const Home: NextPage = () => {
       });
   };
 
+  const doSetStemLight = (stemIsOn: boolean) => {
+    setStemLight(stemIsOn)
+      .then((result) => {
+        console.log(result);
+        appendLog(result.data.message);
+      })
+      .catch((err) => {
+        appendLog("ERROR ON STEM LIGHT");
+      });
+  };
+
   useEffect(() => {
     // try to connect
     testConnectivity()
@@ -103,13 +114,28 @@ const Home: NextPage = () => {
         </div>
 
         <div className="mt-4 max-w-sm">
+          <div className="mb-8">
+            <div className="mb-4 w-full text-center font-extralight text-sm">
+              Stem Light
+            </div>
+            <div className="flex justify-center">
+              <ToggleSwitch
+                onChange={(stemIsOn) => {
+                  console.log(stemIsOn);
+                  doSetStemLight(stemIsOn);
+                }}
+              />
+            </div>
+          </div>
+
           <div>
             <div className="w-full text-center font-extralight text-sm">
-              Accent Light
+              Accent Color
             </div>
 
             <div className="mt-4 flex justify-start gap-4">
               <ColorButton
+                currentColor={color}
                 onClick={(colorResult) => {
                   setColor(colorResult);
                   doChangeColor(colorResult.r, colorResult.g, colorResult.b);
@@ -121,6 +147,7 @@ const Home: NextPage = () => {
                 }}
               />
               <ColorButton
+                currentColor={color}
                 onClick={(colorResult) => {
                   setColor(colorResult);
                   doChangeColor(colorResult.r, colorResult.g, colorResult.b);
@@ -132,6 +159,7 @@ const Home: NextPage = () => {
                 }}
               />
               <ColorButton
+                currentColor={color}
                 onClick={(colorResult) => {
                   setColor(colorResult);
                   doChangeColor(colorResult.r, colorResult.g, colorResult.b);
@@ -143,6 +171,7 @@ const Home: NextPage = () => {
                 }}
               />
               <ColorButton
+                currentColor={color}
                 onClick={(colorResult) => {
                   setColor(colorResult);
                   doChangeColor(colorResult.r, colorResult.g, colorResult.b);
@@ -154,6 +183,7 @@ const Home: NextPage = () => {
                 }}
               />
               <ColorButton
+                currentColor={color}
                 onClick={(colorResult) => {
                   setColor(colorResult);
                   doChangeColor(colorResult.r, colorResult.g, colorResult.b);
@@ -165,6 +195,7 @@ const Home: NextPage = () => {
                 }}
               />
               <ColorButton
+                currentColor={color}
                 onClick={(colorResult) => {
                   setColor(colorResult);
                   doChangeColor(colorResult.r, colorResult.g, colorResult.b);

@@ -10,6 +10,7 @@
     "export": "next export"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.7",
     "axios": "^0.27.2",
     "classnames": "^2.3.2",
     "next": "12.3.0",
@@ -17,7 +18,8 @@
     "react": "18.2.0",
     "react-colorful": "^5.6.1",
     "react-dom": "18.2.0",
-    "react-icons": "^4.4.0"
+    "react-icons": "^4.4.0",
+    "react-usestateref": "^1.0.8"
   },
   "devDependencies": {
     "@types/node": "18.7.18",

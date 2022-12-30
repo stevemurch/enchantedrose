@@ -1,5 +1,4 @@
 import { FaTrash } from "react-icons/fa";
-import { useState } from "react";
 
 export interface LogWindowProps {
   text: string;
