@@ -1,10 +1,10 @@
-# Setting up a Raspberry Pi for Ad Hoc Networking
+# How'd that little device create its own Wifi Network? 
+
+## *How to Set up a Raspberry Pi for Ad Hoc Networking and Access Point*
 
 The Raspberry Pi microcomputer is great for building "Internet of Things" type devices. Perhaps you want to be able to control them remotely via their own wifi network. 
 
-I'm building an updated version of the Enchanted Rose prop which uses wifi, and not Bluetooth, for its control signals. And I don't know what networking environments the prop might be used in. Rather than equip the prop with some kind of way for the prop to join a local WAN, it's far easier for it to broadcast its own tiny network, and be controlled from backstage just on its own. 
-
-The following are instructions which enabled a Raspberry Pi Zero 2W devices to create its own wifi network, broadcast its own ssid, and allow clients (such as mobile browsers) to join it and see a control webpage. 
+Follow the steps below to configure a Raspberry Pi Zero 2W to create its own wifi network, broadcast its own ssid, and allow clients (such as mobile browsers) to join it and see a webpage hosted on the device.
 
 ## Prerequisite: Burn the Raspbian Image of an older version called "Buster" onto your SD card
 
