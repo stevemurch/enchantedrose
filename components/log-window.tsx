@@ -26,7 +26,7 @@ const LogWindow = (props: LogWindowProps) => {
       <textarea
         value={props.text}
         onChange={() => {}}
-        className="bg-gray-700 border border-black text-gray-400 p-2 text-sm h-24 rounded-md w-full"
+        className="font-mono bg-gray-700 border border-black text-gray-400 p-2 text-sm h-24 rounded-md w-full"
       ></textarea>
     </>
   );

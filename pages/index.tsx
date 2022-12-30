@@ -1,6 +1,7 @@
 import { FaExchangeAlt, FaLeaf } from "react-icons/fa";
 import {
   changeColor,
+  doNeoFunction,
   dropPetal,
   setStemLight,
   testConnectivity,
@@ -10,6 +11,7 @@ import { useEffect, useState } from "react";
 import Button from "../components/button";
 import ColorButton from "../components/color-button";
 import Head from "next/head";
+import { IconBaseProps } from "react-icons";
 import LogWindow from "../components/log-window";
 import type { NextPage } from "next";
 import ToggleSwitch from "../components/toggle-switch";
@@ -31,7 +33,6 @@ const Home: NextPage = () => {
   const doDropPetal = (petalNum: number) => {
     dropPetal(petalNum)
       .then((result) => {
-        console.log(result);
         appendLog(result);
       })
       .catch((err) => {
@@ -44,7 +45,6 @@ const Home: NextPage = () => {
   const doChangeColor = (r: number, g: number, b: number) => {
     changeColor(r, g, b)
       .then((result) => {
-        console.log(result);
         appendLog(result.data.message);
       })
       .catch((err) => {
@@ -54,10 +54,15 @@ const Home: NextPage = () => {
       });
   };
 
+  const doNeoRoutine = (routineName: string) => {
+    doNeoFunction(routineName).then((result) => {
+      appendLog(result);
+    });
+  };
+
   const doTestConnectivity = () => {
     testConnectivity()
       .then((result) => {
-        console.log(result);
         appendLog(result.data.message);
       })
       .catch((err) => {
@@ -68,7 +73,6 @@ const Home: NextPage = () => {
   const doSetStemLight = (stemIsOn: boolean) => {
     setStemLight(stemIsOn)
       .then((result) => {
-        console.log(result);
         appendLog(result.data.message);
       })
       .catch((err) => {
@@ -121,7 +125,6 @@ const Home: NextPage = () => {
             <div className="flex justify-center">
               <ToggleSwitch
                 onChange={(stemIsOn) => {
-                  console.log(stemIsOn);
                   doSetStemLight(stemIsOn);
                 }}
               />
@@ -130,7 +133,7 @@ const Home: NextPage = () => {
 
           <div>
             <div className="w-full text-center font-extralight text-sm">
-              Accent Color
+              Accent Light
             </div>
 
             <div className="mt-4 flex justify-start gap-4">
@@ -204,6 +207,27 @@ const Home: NextPage = () => {
                   r: 0,
                   g: 0,
                   b: 0,
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="mb-8">
+            <div className="w-full text-center font-extralight text-sm"></div>
+
+            <div className="mt-4 flex justify-center gap-4">
+              <Button
+                label={"Rainbow"}
+                iconObj={FaLeaf}
+                onClick={() => {
+                  doNeoRoutine("rainbow");
+                }}
+              />
+              <Button
+                label={"Chase"}
+                iconObj={FaLeaf}
+                onClick={() => {
+                  doNeoRoutine("chase");
                 }}
               />
             </div>
