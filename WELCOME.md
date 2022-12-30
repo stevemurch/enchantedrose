@@ -8,7 +8,7 @@
 
 ## How It Works
 
-There's a Raspberry Pi Zero 2 W inside the prop, and it has a website on it. This website controls an API written in Python, which controls the GPIO pins on the Raspberry Pi. Those pins in turn connect to the motors and lights. To drop the petals, the Raspberry Pi briefly turns on an air jet for that petal. The air pressure forces the petal to fall. 
+There's a Raspberry Pi Zero 2 W inside the prop which hosts a website. This website controls a controller API written in Python, which speaks to the GPIO pins on the Raspberry Pi. Those pins in turn tell the circuitry to turn on the motors and lights. To drop the petals, the Raspberry Pi briefly turns on an air jet for that petal. Air pressure forces the petal to fall. 
 
 ## Power Supply 
 
@@ -20,9 +20,9 @@ There three different batteries required for this device:
 
 ## Operation
 
-The prop is designed to be operated from a mobile phone via its own wifi network. Open up your Wifi settings on your phone, and connect to the "**EnchantRose**" network, using the password "**beourguest**!"
+The prop is designed to be operated from a mobile phone via its own wifi network. Turn on the prop and wait 30-60 seconds for it to boot up. Open up your phone's Wifi settings, and look for and connect to the "**EnchantRose**" network, using the password "**beourguest**!" (Note that this network is 2.4Ghz, not the newer 5Ghz band.)
 
-Do not disclose the password for the wifi network; the prop is only meant to be operated by one person at a time. 
+Do not disclose the password for the prop's wifi; the prop is only meant to be operated by one person at a time. 
 
 1. Ensure batteries are fresh and that battery packs are turned on. Fresh AA batteries are recommended for each performance, but should last through at least 3-4 performances as they are only used for the motor and lights. 
 2. Turn on the power to the prop
