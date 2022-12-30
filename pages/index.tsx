@@ -1,4 +1,4 @@
-import { FaExchangeAlt, FaLeaf } from "react-icons/fa";
+import { FaDotCircle, FaExchangeAlt, FaLeaf, FaRainbow } from "react-icons/fa";
 import {
   changeColor,
   doNeoFunction,
@@ -31,6 +31,8 @@ const Home: NextPage = () => {
   };
 
   const doDropPetal = (petalNum: number) => {
+    appendLog(`Sending signal to drop petal ${petalNum}`);
+
     dropPetal(petalNum)
       .then((result) => {
         appendLog(result);
@@ -218,14 +220,14 @@ const Home: NextPage = () => {
             <div className="mt-4 flex justify-center gap-4">
               <Button
                 label={"Rainbow"}
-                iconObj={FaLeaf}
+                iconObj={FaRainbow}
                 onClick={() => {
                   doNeoRoutine("rainbow");
                 }}
               />
               <Button
                 label={"Chase"}
-                iconObj={FaLeaf}
+                iconObj={FaDotCircle}
                 onClick={() => {
                   doNeoRoutine("chase");
                 }}
