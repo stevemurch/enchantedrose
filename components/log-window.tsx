@@ -1,4 +1,4 @@
-import { FaTrash } from "react-icons/fa";
+import { FaEraser } from "react-icons/fa";
 
 export interface LogWindowProps {
   text: string;
@@ -17,7 +17,7 @@ const LogWindow = (props: LogWindowProps) => {
             props.onClearClicked();
           }}
         >
-          <FaTrash
+          <FaEraser
             title="Clear the output log"
             className="w-4 h-4 text-gray-400 hover:text-gray-300 cursor-pointer"
           />

@@ -22,16 +22,22 @@ const Home: NextPage = () => {
   const [logOutput, setLogOutput] = useState("");
   const [connectionSuccessful, setConnectionSuccessful] = useState(false);
   const [color, setColor] = useState({ r: 0, g: 0, b: 0 });
-  const [colorPickerVisible, setColorPickerVisible] = useState(false);
-  //const [hostName, setHostname]
+  const [droppedList, setDroppedList] = useState<{ array1: number[] }>({
+    array1: [],
+  });
 
   const appendLog = (txt: string) => {
     const newText = txt + "\r\n" + logOutput;
     setLogOutput(newText);
   };
 
+  const hasDropped = (num: number): boolean => {
+    return droppedList.array1.filter((x) => x == num).length > 0;
+  };
+
   const doDropPetal = (petalNum: number) => {
     appendLog(`Sending signal to drop petal ${petalNum}`);
+    setDroppedList({ array1: [...droppedList.array1, petalNum] });
 
     dropPetal(petalNum)
       .then((result) => {
@@ -241,32 +247,48 @@ const Home: NextPage = () => {
             </div>
             <div className="mt-4 flex justify-center gap-6">
               <div>
-                <Button
-                  onClick={() => doDropPetal(1)}
-                  iconObj={FaLeaf}
-                  label="1"
-                />
+                <div
+                  className={classnames("", { "opacity-50": hasDropped(1) })}
+                >
+                  <Button
+                    onClick={() => doDropPetal(1)}
+                    iconObj={FaLeaf}
+                    label="1"
+                  />
+                </div>
               </div>
               <div>
-                <Button
-                  onClick={() => doDropPetal(2)}
-                  iconObj={FaLeaf}
-                  label="2"
-                />
+                <div
+                  className={classnames("", { "opacity-50": hasDropped(2) })}
+                >
+                  <Button
+                    onClick={() => doDropPetal(2)}
+                    iconObj={FaLeaf}
+                    label="2"
+                  />
+                </div>
               </div>
               <div>
-                <Button
-                  onClick={() => doDropPetal(3)}
-                  iconObj={FaLeaf}
-                  label="3"
-                />
+                <div
+                  className={classnames("", { "opacity-50": hasDropped(3) })}
+                >
+                  <Button
+                    onClick={() => doDropPetal(3)}
+                    iconObj={FaLeaf}
+                    label="3"
+                  />
+                </div>
               </div>
               <div>
-                <Button
-                  onClick={() => doDropPetal(4)}
-                  iconObj={FaLeaf}
-                  label="4"
-                />
+                <div
+                  className={classnames("", { "opacity-50": hasDropped(4) })}
+                >
+                  <Button
+                    onClick={() => doDropPetal(4)}
+                    iconObj={FaLeaf}
+                    label="4"
+                  />
+                </div>
               </div>
             </div>
           </div>
