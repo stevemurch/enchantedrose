@@ -3,12 +3,24 @@
 ## Components
 
 - Glass Cloche
-- Electronics: Raspberry Pi Zero 2W, NeoPixels by Adafruit, 9V Air pumps
+- Electronics
 - Rose and Petals
+
+## How It Works
+
+There's a Raspberry Pi Zero 2 W inside the prop, and it has a website on it. This website controls an API written in Python, which controls the GPIO pins on the Raspberry Pi. Those pins in turn connect to the motors and lights. To drop the petals, the Raspberry Pi briefly turns on an air jet for that petal. The air pressure forces the petal to fall. 
+
+## Power Supply 
+
+There three different batteries required for this device:
+
+* Main computer requires a 5V microUSB connector. I recommend something like a 10000mah portable USB battery. (Alternative: You could plug in an official micro-USB Raspberry Pi Power Adapter.) 
+* Lights: The multicolored accent lights require 3 AA batteries.
+* Pumps: These require a 9V battery.
 
 ## Operation
 
-The prop is designed to be operated from a mobile phone via its own wifi network. 
+The prop is designed to be operated from a mobile phone via its own wifi network. Open up your Wifi settings on your phone, and connect to the "**EnchantRose**" network, using the password "**beourguest**!"
 
 Do not disclose the password for the wifi network; the prop is only meant to be operated by one person at a time. 
 
