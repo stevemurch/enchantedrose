@@ -213,8 +213,8 @@ const Home: NextPage = () => {
             <div className="flex justify-start gap-4">
               <ColorButton
                 onClick={(colorResult) => {
-                  console.log(colorResult.b);
                   setColor(colorResult);
+                  doChangeColor(colorResult.r, colorResult.g, colorResult.b);
                 }}
                 color={{
                   r: 255,
@@ -224,8 +224,8 @@ const Home: NextPage = () => {
               />
               <ColorButton
                 onClick={(colorResult) => {
-                  console.log(colorResult.b);
                   setColor(colorResult);
+                  doChangeColor(colorResult.r, colorResult.g, colorResult.b);
                 }}
                 color={{
                   r: 255,
@@ -235,8 +235,8 @@ const Home: NextPage = () => {
               />
               <ColorButton
                 onClick={(colorResult) => {
-                  console.log(colorResult.b);
                   setColor(colorResult);
+                  doChangeColor(colorResult.r, colorResult.g, colorResult.b);
                 }}
                 color={{
                   r: 0,
@@ -246,8 +246,8 @@ const Home: NextPage = () => {
               />
               <ColorButton
                 onClick={(colorResult) => {
-                  console.log(colorResult.b);
                   setColor(colorResult);
+                  doChangeColor(colorResult.r, colorResult.g, colorResult.b);
                 }}
                 color={{
                   r: 0,
@@ -257,8 +257,8 @@ const Home: NextPage = () => {
               />
               <ColorButton
                 onClick={(colorResult) => {
-                  console.log(colorResult.b);
                   setColor(colorResult);
+                  doChangeColor(colorResult.r, colorResult.g, colorResult.b);
                 }}
                 color={{
                   r: 255,
