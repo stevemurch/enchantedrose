@@ -1,16 +1,16 @@
-# Welcome to Enchanted Rose
-
-This prop was built by Steve Murch. Visit https://stevemurch.com for notes. 
+# Enchanted Rose Prop
 
 ## Components
 
 - Glass Cloche
-- Prop Base, with electronics (powered by Raspberry Pi Zero W2)
+- Electronics: Raspberry Pi Zero 2W, NeoPixels by Adafruit, 9V Air pumps
 - Rose and Petals
 
 ## Operation
 
-The prop is operated from a mobile phone via its own wifi network. Don't disclose the password for the wifi network, as the prop is only meant to be operated by one person at a time. 
+The prop is designed to be operated from a mobile phone via its own wifi network. 
+
+Do not disclose the password for the wifi network; the prop is only meant to be operated by one person at a time. 
 
 1. Ensure batteries are fresh and that battery packs are turned on. Fresh AA batteries are recommended for each performance, but should last through at least 3-4 performances as they are only used for the motor and lights. 
 2. Turn on the power to the prop
@@ -31,6 +31,12 @@ The prop is operated from a mobile phone via its own wifi network. Don't disclos
 | Lights don't turn on                                         | Check that the battery packs are fresh, and check the wiring |
 
 Make sure batteries are fresh.
+
+## Author
+
+Built by Steve Murch. 
+
+For current notes, visit https://stevemurch.com (or specifically [https://www.stevemurch.com/category/tech/maker-projects](https://www.stevemurch.com/category/tech/maker-projects).) You'll find a "get in touch" link on that site as well, if you have specific questions. 
 
 
 
