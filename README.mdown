@@ -1,4 +1,6 @@
-The Enchanted Rose is a prop with a Raspberry Pi Zero W base. You connect to it using an ad-hoc network (i.e., use your iPhone's Wifi settings to connect to the device) and operate the prop with your mobile phone's web browser. 
+The Enchanted Rose is a prop controlled by a Raspberry Pi Zero 2W. 
+
+To use it, you connect to its ad-hoc network (i.e., use another device to connect to the prop's wifi network) and operate the prop with your mobile phone's web browser. 
 
 The instructions below will place that web server at 192.168.11.1. So once you connect in to the prop, you visit http://192.168.11.1 on your phone's web browser. 
 
