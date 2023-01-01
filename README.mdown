@@ -1,8 +1,22 @@
+**Companion to Enchanted Rose Flask API**, available here: [stevemurch/enchantedrosepython: (github.com)](https://github.com/stevemurch/enchantedrosepython). 
+
 # Enchanted Rose
 
-The Enchanted Rose is a prop for stage productions of "Beauty and the Beast." It's a Raspberry Pi-based device which lets the stage manager turn on and off accent lights, and signal the prop to drop 4 rose petals on cue.
+The Enchanted Rose is a stage prop for productions of "Beauty and the Beast." This repo contains the controller software for version 2.0 of a Raspberry Pi-based device. 
 
-To use it, the stage manager connects its ad-hoc network (i.e., use another device to connect to the prop's wifi network), and access the website run on the RPi device. 
+The main functions of the prop are: 
+
+- Turn stem light on and off
+- Turn accent light on and off, and set colors and pattern 
+- Drop 4 rose petals, one by one, on cue.
+
+Control is via a web browser. That is, the prop itself hosts a web server and its own private "ad-hoc" network. The stage manager connects the prop's ad-hoc network and accesses the controller software. 
+
+There are three main components to this prop:
+
+1) The controller software, written in React/Next.js. That's what's in this repository. Next.js tooling is used to compile the fairly simple website on a development machine and then scp is used to transfer the final code onto the device's "/var/www/html" directory, so that Apache can serve it up to the web browser. 
+2) The python-based API software, which controls the GPIO pins on the Raspberry Pi. That's in a GitHub repository called "[enchantedrosepython](https://github.com/stevemurch/enchantedrosepython/tree/main/python)." The role of that software libary is to present an API that the controller software uses. This Flask API, served up by gunicorn on the prop, is required for the prop to function. 
+3) The prop hardware. 
 
 You'll find more information about this prop at my blog, https://stevemurch.com.  
 
