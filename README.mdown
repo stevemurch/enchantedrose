@@ -1,6 +1,10 @@
-The Enchanted Rose is a prop controlled by a Raspberry Pi Zero 2W. 
+# Enchanted Rose
 
-To use it, you connect to its ad-hoc network (i.e., use another device to connect to the prop's wifi network) and operate the prop with your mobile phone's web browser. 
+The Enchanted Rose is a prop for stage productions of "Beauty and the Beast." It's a Raspberry Pi-based device which lets the stage manager turn on and off accent lights, and signal the prop to drop 4 rose petals on cue.
+
+To use it, the stage manager connects its ad-hoc network (i.e., use another device to connect to the prop's wifi network), and access the website run on the RPi device. 
+
+You'll find more information about this prop at my blog, https://stevemurch.com.  
 
 The instructions below will place that web server at 192.168.11.1. So once you connect in to the prop, you visit http://192.168.11.1 on your phone's web browser. 
 
