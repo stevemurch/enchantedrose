@@ -1,4 +1,10 @@
-import { FaDotCircle, FaExchangeAlt, FaLeaf, FaRainbow } from "react-icons/fa";
+import {
+  FaAngleDoubleUp,
+  FaDotCircle,
+  FaExchangeAlt,
+  FaLeaf,
+  FaRainbow,
+} from "react-icons/fa";
 import {
   changeColor,
   doNeoFunction,
@@ -238,6 +244,13 @@ const Home: NextPage = () => {
                   doNeoRoutine("chase");
                 }}
               />
+              <Button
+                label={"Pulse"}
+                iconObj={FaAngleDoubleUp}
+                onClick={() => {
+                  doNeoRoutine("pulse");
+                }}
+              />
             </div>
           </div>
 
@@ -316,6 +329,7 @@ const Home: NextPage = () => {
             className="text-extralight  text-xs"
             href="https://www.stevemurch.com/category/tech/maker-projects"
             target="_blank"
+            rel="noreferrer"
           >
             <span className="text-gray-600 hover:text-gray-200">
               &copy; 2023 Steve Murch
