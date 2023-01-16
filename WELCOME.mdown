@@ -1,22 +1,52 @@
-d# Enchanted Rose Prop
+# Enchanted Rose Prop 2.0
 
-## Components
+![Beauty and the Beast is getting a 30th anniversary ABC special | EW.com](https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F6%2F2018%2F08%2F000227740hr-2000.jpg)
+
+## FRAGILE
+
+Please take care when removing components. I've tried to pack them carefully and I hope they survive shipment fine!
+
+
+
+## In the Box
 
 - Glass Cloche
-- Electronics
-- Rose and Petals
+- Base -- stem and black painted box with electronics inside
+- Petals for dropping
+- Batteries and power cord
+- Spare Parts and extra decor 
+
+## Welcome
+
+Congratulations on your upcoming production of *Beauty and the Beast*. Included in this shipment is an *Enchanted Rose 2.0* prop. This prop is primarily designed to let a stagehand drop 4 petals on cue. 
+
+The prop:  
+
+* Presents a private wifi network ("EnchantRose"; password is "beourguest!")
+* Controller software: Once connected to the "EnchantRose" network 
+  on your mobile device, visit **http://192.168.11.1** to control the prop
+* Is able to drop 4 petals on cue, one by one 
+* Is capable of running wirelessly -- by USB battery 
+* Has stem "fairy" lights which can be remotely turned on and off
+* Prop has accent lights which can be in a color, or a pattern (rainbow, chase and pulse)
+
+
 
 ## How It Works
 
 There's a Raspberry Pi Zero 2 W inside the prop which hosts a website. This website controls a controller API written in Python, which speaks to the GPIO pins on the Raspberry Pi. Those pins in turn tell the circuitry to turn on the motors and lights. To drop the petals, the Raspberry Pi briefly turns on an air jet for that petal. Air pressure forces the petal to fall. 
 
-## Power Supply 
+## Powering the Prop 
 
-There three different batteries required for this device:
+There are **three** power sources needed for this prop to fully function, because there are three different levels of voltage needed by components. (1) The Raspberry Pi, (2) the two kinds of lights -- stem "fairy lights" and accent LED lights circling the base, and (3) the Motors. 
 
-* Main computer requires a 5V microUSB connector. I recommend something like a 10000mah portable USB battery. (Alternative: You could plug in an official micro-USB Raspberry Pi Power Adapter.) 
-* Lights: The multicolored accent lights require 3 AA batteries.
-* Pumps: These require a 9V battery.
+* The main Raspberry Pi computer requires a 5V microUSB connector plugged in to the input shown in the photo below. You can supply it with the power cord (supplied) and into a wall, OR you can use the USB battery (supplied) to power it in a wireless way. 
+* Lights: The multicolored accent lights require 3 AA batteries in the clear battery case. Make sure the black power switch is set to "On." 
+* Pumps: These require 12V, which is supplied by the 8-AA battery pack.
+
+![image-20230116140041294](/Users/steve/Library/Application Support/typora-user-images/image-20230116140041294.png)
+
+
 
 ## Operation
 
@@ -41,8 +71,9 @@ Do not disclose the password for the prop's wifi; the prop is only meant to be o
 | I can connect to controller interface, but it says it cannot connect to device | Try "Connect to Device" button on control. If you get an error in the box below, contact Steve. |
 | I can connect to controller interface, but when I press the drop button, nothing happens | Most likely, batteries are depleted, or the battery pack wires aren't connected to the pump motors. |
 | Lights don't turn on                                         | Check that the battery packs are fresh, and check the wiring |
+| I hear motor but petals do not appear to drop                | Petals are stuck, usually against another petal or against the glass wall. Arrange them (or even cut them) in such a way as to NOT hit either the glass wall or each other, and try again. It will take a little practice to position these properly, but after a few tries, you'll quickly figure out what patterns are most successful. |
 
-Make sure batteries are fresh.
+Make sure batteries are fresh! I've found the AA batteries work for at least 18 hours, but you should disconnect them when the production is done. 
 
 ## Author
 
